@@ -1,5 +1,6 @@
 import os
 import matplotlib.pyplot as plt
+from main_heuristics import heuristics_solve
 from main_milp import milp_solve
 
 
@@ -10,8 +11,7 @@ from main_milp import milp_solve
 # nr_instances is the number of instances on which to run all functions
 def run_experiment(name, funcs_times_labels, nr_instances=13):
     path = os.path.join("solutions/experiments")
-    file = open(path + "/"
-                       "" + name + ".txt", "a")
+    file = open(path + "/" + name + ".txt", "a")
     solutions = list(map(lambda x : (x[0](nr_instances, x[1]), x[2]), funcs_times_labels))
     for solution in solutions:
         x_val = list(map(lambda x : x[0], solution[0]))
@@ -27,4 +27,4 @@ def run_experiment(name, funcs_times_labels, nr_instances=13):
     plt.savefig(path + "\\" + name + ".png")
     
 
-run_experiment("milp-30-60-180-300", [(milp_solve, 30, "MILP solver, limited to 30 seconds"), (milp_solve, 60, "MILP solver, limited to 60 seconds"), (milp_solve, 180, "MILP solver, limited to 180 seconds"), (milp_solve, 300, "MILP solver, limited to 300 seconds")])
+run_experiment("test_representation", [(heuristics_solve, 30, "Heuristic solver, limited to 30 seconds")])
