@@ -23,7 +23,11 @@ def heuristic(to_solve, csv_output):
                         k = machine_k.index
                         if machine_k.index in map((lambda x : x.index), op_j.machines):
                             #TODO implement heuristics
-                            TC = 1 
+                            end_time_prev_op = 0
+                            if j > 0:
+                                end_time_prev_op = job_i.operations[j-1].end_time
+                            h1 = max(current_max_func(machine_k), end_time_prev_op) +  time_taken_func(op_j.machines, k)
+                            TC = h1
 
                             if(TC < TC_):
                                 TC_ = TC
