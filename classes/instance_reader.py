@@ -1,7 +1,7 @@
 from classes.instance_representation import Job, Machine, Op_Machine, Operation, ToSolve
 
 
-def read_instance(jobs, machines, processingTimes, machineAlternatives, operations,changeOvers, orders):
+def read_instance(jobs, machines, processingTimes, machineAlternatives, operations, changeOvers, orders):
     result_jobs = []
     for j in jobs:
         order = orders.get(j)
@@ -17,9 +17,9 @@ def read_instance(jobs, machines, processingTimes, machineAlternatives, operatio
                time = processingTimes.get((j,o,m))
                result_machines.append(Op_Machine(m, time))
 
-            result_ops.append(Operation(result_machines))
+            result_ops.append(Operation(o, result_machines))
         
-        result_jobs.append(Job(result_ops, product, due))
+        result_jobs.append(Job(j, result_ops, product, due))
     
     result_machines = []
     for m in machines:

@@ -27,4 +27,4 @@ def run_experiment(name, funcs_times_labels, nr_instances=13):
     plt.savefig(path + "\\" + name + ".png")
     
 
-run_experiment("test_representation", [(heuristics_solve, 30, "Heuristic solver, limited to 30 seconds")])
+run_experiment("test_heuristics", [(heuristics_solve, 30, "Heuristic solver, limited to 30 seconds")])
