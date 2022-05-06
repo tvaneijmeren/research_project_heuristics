@@ -3,7 +3,7 @@ class ToSolve:
         # max operations for a single job --> constant 3.   
         self.maxJ = 3
         # a large number --> value chosen, note in paper, can be optimized later.
-        self.M = 1000
+        self.M = 5000
         # list of machines
         self.machines = machines
         # list of jobs
