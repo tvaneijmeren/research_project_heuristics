@@ -1,5 +1,5 @@
 import importlib
-from classes.heuristics import heuristic
+from classes.heuristics import heuristic_fast, heuristic_slow
 from classes.instance_reader import read_instance
 from classes.instance_representation import ToSolve
 from main_milp import objective_function
@@ -13,7 +13,7 @@ def run_heuristics(fileName, time=0):
                           machineAlternatives=
                           mod.machineAlternatives, operations=mod.operations,
                           changeOvers=mod.changeOvers, orders=mod.orders)
-    return heuristic(to_solve, "solutions/heuristic/heuristic_solution_" + fileName + '.csv')
+    return heuristic_fast(to_solve, "solutions/heuristic/heuristic_solution_" + fileName + '.csv')
 
 
 def heuristics_solve(nr_instances, time):
