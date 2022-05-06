@@ -1,4 +1,5 @@
 from copy import deepcopy
+import time
 import pandas as pd
 
 def heuristic_slow(to_solve, csv_output):
@@ -94,7 +95,7 @@ def heuristic_slow(to_solve, csv_output):
 
 
 def heuristic_fast(to_solve, csv_output):
-    cmax = to_solve.M
+    s_time = time.perf_counter()
     w1 = 6
     w2 = 0
     w3 = -1
@@ -166,6 +167,8 @@ def heuristic_fast(to_solve, csv_output):
     results = [x for y in results_unfolded for x in y]
     schedule = pd.DataFrame(results)
     schedule.to_csv(csv_output, index=False)
+    c_time = time.perf_counter() - s_time
+    print(f"{c_time:0.4f} seconds")
     return schedule
 
 
