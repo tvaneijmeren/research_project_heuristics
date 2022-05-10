@@ -27,4 +27,4 @@ def run_experiment(name, funcs_times_labels, nr_instances=13):
     plt.savefig(path + "\\" + name + ".png")
     
 
-run_experiment("heuristics-milp-compare", [(heuristics_solve, 30, "Heuristic solver"), (milp_solve, 30, "MILP solver, limited to 30 seconds")])
+run_experiment("heuristics", [(heuristics_solve, 30, "Heuristic solver")])

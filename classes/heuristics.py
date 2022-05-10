@@ -3,14 +3,15 @@ import time
 import pandas as pd
 
 def heuristic_slow(to_solve, csv_output):
+    s_time = time.perf_counter()
     cmax = to_solve.M
     results = []
     to_solve_original = to_solve
-    for w1 in [2,4,6,8]:
-        for w2 in range(0 , 1):
-            for w3 in range(-1, 0):
-                for w4 in [-6, -4, -2]:
-                    for w5 in range(-1, 0):
+    for w1 in [4,6,8]:
+        for w2 in range(-3, -2):
+            for w3 in range(-4, -3):
+                for w4 in range(-2, 1):
+                    for w5 in range(-3, -2):
                         to_solve = deepcopy(to_solve_original)
                         z = -1
                         y = -1
@@ -90,7 +91,8 @@ def heuristic_slow(to_solve, csv_output):
     schedule = pd.DataFrame(results)
     schedule.to_csv(csv_output, index=False)
     print(w1_r, w2_r, w3_r, w4_r, w5_r)
-
+    c_time = time.perf_counter() - s_time
+    print(f"{c_time:0.4f} seconds")
     return schedule
 
 
@@ -100,7 +102,7 @@ def heuristic_fast(to_solve, csv_output):
     w2 = 0
     w3 = -1
     w4 = -2
-    w5 = -1
+    w5 = -3
 
     z = -1
     y = -1

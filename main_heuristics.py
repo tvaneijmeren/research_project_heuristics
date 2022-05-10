@@ -13,7 +13,7 @@ def run_heuristics(fileName, time=0):
                           machineAlternatives=
                           mod.machineAlternatives, operations=mod.operations,
                           changeOvers=mod.changeOvers, orders=mod.orders)
-    return heuristic_fast(to_solve, "solutions/heuristic/heuristic_solution_" + fileName + '.csv')
+    return heuristic_slow(to_solve, "solutions/heuristic/heuristic_solution_" + fileName + '.csv')
 
 
 def heuristics_solve(nr_instances, time):
