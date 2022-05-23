@@ -43,5 +43,5 @@ def run_experiment(name, funcs_times_labels, nr_instances=13):
     plt.savefig(path + "\\" + name + ".png")
     
 
-make_plot([a, b])
-#run_experiment("heuristics", [(heuristics_solve, 30, "Heuristic solver")])
+#make_plot([a, b])
+run_experiment("heuristics", [(heuristics_solve, 30, "Heuristic solver")])

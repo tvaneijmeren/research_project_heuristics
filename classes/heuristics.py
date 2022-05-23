@@ -7,13 +7,13 @@ def heuristic_slow(to_solve, csv_output):
     cmax = to_solve.M
     results = []
     to_solve_original = to_solve
-    for w1 in [4,6,8]:
+    for w1 in [4,6,8, 10]:
         for w2 in range(-3, -2):
             for w3 in range(-4, -3):
                 for w4 in range(-2, 1):
                     for w5 in range(-3, -2):
-                        for w6 in [0, 1]:
-                            for w7 in [0, 1]:
+                                w6 = 1
+                                w7 = 1
                                 to_solve = deepcopy(to_solve_original)
                                 z = -1
                                 y = -1
@@ -27,14 +27,14 @@ def heuristic_slow(to_solve, csv_output):
 
                                         for i_ in range(0, to_solve.n):
                                             to_solve.isort = sorted(to_solve.jobs, key=(lambda x : x.s))  
-                                            ii = (1 - w6) * i_ + w6 * (to_solve.n - i_) 
+                                            ii = (1 - w6) * i_ + w6 * (to_solve.n - 1 - i_) 
                                             job_i = to_solve.isort[ii]
                                             i = job_i.index
                                             if j < job_i.n_ops and job_i.operations[j].end_time == -1:
                                                 op_j = job_i.operations[j]
                                                 for k_ in range(0, to_solve.m):
                                                     # ksort -> lowest changeover times avg?
-                                                    ki = (1 - w7) * k_ + w7 * (to_solve.m - k_) 
+                                                    ki = (1 - w7) * k_ + w7 * (to_solve.m - 1 - k_) 
                                                     machine_k = to_solve.machines[ki]
                                                     k = machine_k.index
                                                     if machine_k.index in map((lambda x : x.index), op_j.machines):
@@ -78,23 +78,25 @@ def heuristic_slow(to_solve, csv_output):
                                             if j < job.n_ops:
                                                 j_all_scheduled = j_all_scheduled and not job.operations[j].end_time == -1
                             
-                        temp_results_unfolded = map((lambda x : x.operations), to_solve.machines)
-                        temp_results = [x for y in temp_results_unfolded for x in y]
-                        temp_cmax = max(list(map((lambda x : x.get("Completion")),  temp_results)))
-                        
-                        if temp_cmax < cmax:
-                            cmax = temp_cmax
-                            results = temp_results
-                            w1_r = w1
-                            w2_r = w2 
-                            w3_r = w3 
-                            w4_r = w4 
-                            w5_r = w5 
+                                temp_results_unfolded = map((lambda x : x.operations), to_solve.machines)
+                                temp_results = [x for y in temp_results_unfolded for x in y]
+                                temp_cmax = max(list(map((lambda x : x.get("Completion")),  temp_results)))
+                                
+                                if temp_cmax < cmax:
+                                    cmax = temp_cmax
+                                    results = temp_results
+                                    w1_r = w1
+                                    w2_r = w2 
+                                    w3_r = w3 
+                                    w4_r = w4 
+                                    w5_r = w5 
+                                    w6_r = w6
+                                    w7_r = w7
 
     # Write results to csv
     schedule = pd.DataFrame(results)
     schedule.to_csv(csv_output, index=False)
-    print(w1_r, w2_r, w3_r, w4_r, w5_r)
+    print(w1_r, w2_r, w3_r, w4_r, w5_r, w6_r, w7_r)
     c_time = time.perf_counter() - s_time
     print(f"{c_time:0.4f} seconds")
     return schedule

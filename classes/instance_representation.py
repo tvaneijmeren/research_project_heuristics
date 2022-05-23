@@ -9,7 +9,6 @@ class ToSolve:
         # list of jobs
         self.jobs = jobs
         # list of jobs sorted on s value increasing. 
-        #TODO why increasing? --> just do as in paper for now change later potentially
         self.isort = sorted(jobs, key=(lambda x : x.s))  
         # n = amount of jobs
         self.n = len(jobs)
